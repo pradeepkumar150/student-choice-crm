@@ -1,0 +1,25 @@
+USE student_choice_crm;
+CREATE TABLE IF NOT EXISTS leads (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  phone VARCHAR(25) NOT NULL,
+  email VARCHAR(150) NOT NULL DEFAULT '',
+  country VARCHAR(80) NOT NULL DEFAULT '',
+  university VARCHAR(180) NOT NULL DEFAULT '',
+  loan_amount DECIMAL(14,2) NOT NULL DEFAULT 0,
+  student_name VARCHAR(120) NOT NULL DEFAULT '',
+  co_applicant VARCHAR(120) NOT NULL DEFAULT '',
+  occupation VARCHAR(100) NOT NULL DEFAULT '',
+  source VARCHAR(80) NOT NULL DEFAULT 'Direct',
+  remarks TEXT,
+  login_city VARCHAR(100) NOT NULL DEFAULT '',
+  sanction_city VARCHAR(100) NOT NULL DEFAULT '',
+  credit_score SMALLINT UNSIGNED NULL,
+  entrance_exam VARCHAR(100) NOT NULL DEFAULT '',
+  status VARCHAR(30) NOT NULL DEFAULT 'new',
+  assigned_to INT UNSIGNED NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_leads_status (status), INDEX idx_leads_source (source), INDEX idx_leads_assigned_to (assigned_to), INDEX idx_leads_phone (phone),
+  CONSTRAINT fk_lead_assignee FOREIGN KEY (assigned_to) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
